@@ -1,0 +1,29 @@
+version: "3.8"
+services:
+
+  mongodb:
+    image: "mongo"
+
+  server:
+    container_name: ed-tech-backend 
+    image: ed-tech-backend  
+    build: ./server
+    ports:
+      - "4000:4000"
+    depends_on:
+      - mongodb
+
+  src:
+    container_name: ed-tech-frontend
+    image: ed-tech-frontend
+    build: ./src
+    ports:
+      - "3000:3000"
+    stdin_open: true
+    tty: true
+    depends_on:
+      - server
+
+volumes:
+  data:
+  logs:
